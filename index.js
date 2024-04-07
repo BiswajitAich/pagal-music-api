@@ -5,10 +5,6 @@ const app = express();
 const port = 8888;
 const baseUrl = "https://www.pagalworld.com.cm";
 
-app.use("/", (req, res) => {
-    res.json({ message: "Pagal world backend api" });
-})
-
 app.get('/search', async (req, res) => {
     try {
         const id = req.query.id;
@@ -199,6 +195,10 @@ app.get('/new-hindi-songs-2024', async (req, res) => {
         console.error("Error:", error);
         res.status(500).send("Internal Server Error");
     }
+})
+
+app.use("/", (req, res) => {
+    res.json({ message: "Pagal world backend api" });
 })
 
 app.listen(8888, () => {
