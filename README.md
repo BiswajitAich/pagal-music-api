@@ -12,7 +12,7 @@ Welcome to Pagal Music API, your go-to solution for accessing a vast collection 
 ### Search Music
 
 #### Request to search a song:
-get fetch([Link Text](https://pagal-music-api.vercel.app/search?id=o mahi o mahi))
+get fetch(https://pagal-music-api.vercel.app/search?id=o mahi o mahi)
 
 #### Response
 
@@ -39,7 +39,7 @@ get fetch([Link Text](https://pagal-music-api.vercel.app/search?id=o mahi o mahi
 ]
 ```
 #### Request to get song details:
-get fetch([Link Text](https://pagal-music-api.vercel.app/song?id=o-mahi-o-mahi-mp3-song-download))
+get fetch(https://pagal-music-api.vercel.app/song?id=o-mahi-o-mahi-mp3-song-download)
 
 #### Response 
 ```json
@@ -60,7 +60,7 @@ get fetch([Link Text](https://pagal-music-api.vercel.app/song?id=o-mahi-o-mahi-m
 }
 ```
 #### Request to get the audio
-get fetch([Link Text](https://pagal-music-api.vercel.app/audio?id=o-mahi-o-mahi-mp3-song-download))
+get fetch(https://pagal-music-api.vercel.app/audio?id=o-mahi-o-mahi-mp3-song-download)
 
 #### Response
 ```json
@@ -74,7 +74,7 @@ example use in HTML
 </audio>
 ```
 #### Request to get Lyrics
-get fetch([Link Text](https://pagal-music-api.vercel.app/lyrics?id=o-mahi-o-mahi-mp3-song-download))
+get fetch(https://pagal-music-api.vercel.app/lyrics?id=o-mahi-o-mahi-mp3-song-download)
 #### Response 
 ```json
 {
@@ -97,7 +97,7 @@ get fetch([Link Text](https://pagal-music-api.vercel.app/lyrics?id=o-mahi-o-mahi
 }
 ```
 #### Request to get top viral songs
-get fetch([Link Text](https://pagal-music-api.vercel.app/top-virals))
+get fetch(https://pagal-music-api.vercel.app/top-virals)
 #### Response
 ```json
 [
@@ -123,7 +123,7 @@ get fetch([Link Text](https://pagal-music-api.vercel.app/top-virals))
 ```
 
 #### Request to get top new 2024 songs
-get fetch([Link Text](https://pagal-music-api.vercel.app/new-hindi-songs-2024?page=1))
+get fetch(https://pagal-music-api.vercel.app/new-hindi-songs-2024?page=1)
 default page value is '1'.
 #### Response
 ```json
