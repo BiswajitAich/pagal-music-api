@@ -11,7 +11,7 @@ Welcome to Pagal Music API, your go-to solution for accessing a vast collection 
 
 ### Search Music
 
-#### Request￼Enter
+#### Request to search a song:
 https://pagal-music-api.vercel.app/search?id=pathan
 
 #### Response
@@ -38,4 +38,39 @@ https://pagal-music-api.vercel.app/search?id=pathan
     }
   }
 ]
+```
+#### Request to get song details:
+https://pagal-music-api.vercel.app/song?id=kurte-pathani-mp3-song-download
 
+#### Response 
+```json
+{
+  "img": "https://www.pagalworld.com.cm/siteuploads/thumb/sft141/70114_4.jpg",
+  "title": "Kurte Pathani Song",
+  "more": {
+    "Category": "New Punjabi Song 2024",
+    "Singer": "Gunjazz,",
+    "Music": "Gurmeet Singh,",
+    "Lyrics": "Jaggi Jagowal,",
+    "Label": "SagaHits",
+    "Duration": "3:09",
+    "Added On": "12-Feb-2024",
+    "Size": "2.89 mb",
+    "audio": "https://www.pagalworld.com.cm/files/download/id/70114"
+  }
+}
+```
+#### Request to get the audio
+https://pagal-music-api.vercel.app/audio?id=kurte-pathani-mp3-song-download
+
+#### Response
+```json
+{"url":"https://www.pagalworld.com.cm/files/download/id/70114"}
+```
+example use in HTML 
+```html
+<audio controls>
+  <source src="https://www.pagalworld.com.cm/files/download/id/70114" type="audio/mpeg" controls>
+  Your browser does not support the audio element.
+</audio>
+```
