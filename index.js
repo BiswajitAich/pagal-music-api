@@ -147,14 +147,14 @@ app.get('/top-virals', async (_req, res) => {
         const response = await fetch(`${baseUrl}`)
         const html = await response.text();
         const $ = load(html);
-        const virals = {}
+        const virals = []
         $('body > main > div.block:eq(0) > ul.list > li').each((i, el) => {
             const songId = $(el).find('a').attr("href").replace(`${baseUrl}/`, "").replace(/^\//, '').replace(/\.html$/, "").trim();
             const img = $(el).find('img').attr('src');
             const name = $(el).find('p.b.bk').text();
             const singer = $(el).find('p.bk.s:eq(0)').text();
             const type = $(el).find('p.bk.s:eq(1)').text();
-            virals[i + 1] = {
+            virals[i] = {
                 "songId": songId,
                 "img": `${baseUrl}/${img}`,
                 "name": name,
@@ -162,7 +162,7 @@ app.get('/top-virals', async (_req, res) => {
                 "type": type
             }
         })
-        res.send([ virals ]);
+        res.send(virals);
     } catch (error) {
         console.error("Error:", error);
         res.status(500).send("Internal Server Error");
