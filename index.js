@@ -3,7 +3,8 @@ import { load } from 'cheerio';
 
 const app = express();
 const port = 8888;
-const baseUrl = "https://www.pagalworld.com.cm";
+//const baseUrl = "https://www.pagalworld.com.cm";
+const baseUrl = "https://www.pagalworld.online";
 
 app.get('/search', async (req, res) => {
     try {
