@@ -24,7 +24,25 @@ const baseUrl = "https://pagalworld.gay";
 // });
 
 
-app.get('/audio', async (req, res) => {
+// app.get('/audio', async (req, res) => {
+//     try {
+//         const id = req.query.id;
+//         if (!id) {
+//             return res.status(400).send("ID parameter is missing");
+//         }
+//         const response = await fetch(`${baseUrl}/${id}.html`)
+//         const html = await response.text();
+//         const $ = load(html);
+//         const url = $("audio").attr("src");
+//         const audioSrcUrl = { "url": url };
+//         res.send(audioSrcUrl);
+//     } catch (error) {
+//         console.error("Error:", error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// })
+
+app.get('/download-urls', async (req, res) => {
     try {
         const id = req.query.id;
         if (!id) {
@@ -33,9 +51,18 @@ app.get('/audio', async (req, res) => {
         const response = await fetch(`${baseUrl}/${id}.html`)
         const html = await response.text();
         const $ = load(html);
-        const url = $("audio").attr("src");
-        const audioSrcUrl = { "url": url };
-        res.send(audioSrcUrl);
+        const downloadData = []
+        $('div.downloaddiv').each((i, el) => {
+            const link = $(el).find('a.dbutton').attr('href')
+            const kbps = $(el).find('a.dbutton span span').first().text().trim().replace('Download in ', '');
+            const size = $(el).find('a.dbutton span span').last().text().trim().replace('Size ', '')
+            downloadData.push({
+                link: link,
+                kbps: kbps,
+                size: size
+            });
+        });
+        res.send(downloadData);
     } catch (error) {
         console.error("Error:", error);
         res.status(500).send("Internal Server Error");
