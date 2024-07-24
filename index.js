@@ -2,12 +2,15 @@ import express from "express";
 import { load } from 'cheerio';
 import fetchUpdatesForCategory from "./files/updateFetcher.js";
 import fetchTrendsByCategory from "./files/trendingFetcher.js";
+import cors from "cors"
 
 const app = express();
 const port = 8888;
 //const baseUrl = "https://www.pagalworld.com.cm";
 const baseUrl = "https://pagalworld.gay";
 
+
+app.use(cors());
 // app.get('/search', async (req, res) => {
 //     try {
 //         const query = req.query.q; 
@@ -180,6 +183,17 @@ app.get('/songData', async (req, res) => {
 
 
 
+app.get('/updates', async (req, res) => {
+    try {
+        const page = req.query.page || 1;
+        const updates = await fetchUpdatesForCategory(baseUrl, 'updates', page);
+        res.send(updates);
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 app.get('/top-updates', async (req, res) => {
     try {
         const page = req.query.page || 1;
@@ -190,6 +204,7 @@ app.get('/top-updates', async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
 app.get('/bengali-latest-updates', async (req, res) => {
     try {
         const page = req.query.page || 1;
@@ -200,6 +215,7 @@ app.get('/bengali-latest-updates', async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
 app.get('/bhakti-latest-updates', async (req, res) => {
     try {
         const page = req.query.page || 1;
@@ -254,7 +270,7 @@ app.get('/albums', async (req, res) => {
         const $ = load(html);
         const albums = []
         $('div.tnned.alt-bg-gray').each((i, el) => {
-            const songId = $(el).find('a').attr('href').replace(`${baseUrl}/`, "").replace(/^\//, "").replace(/\.html/, "").trim();
+            const songId = $(el).find('a').attr('href').replace(`${baseUrl}/`, "").replace(/^\//, "").replace(/\.html/, "").split('/').slice(0, -1).join('/');
             const img = $(el).find('img').attr('data-src');
             const name = $(el).find('h3 > a').text()
             albums[i] = {
@@ -264,6 +280,35 @@ app.get('/albums', async (req, res) => {
             }
         })
         res.send(albums)
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+app.get('/album-songs', async (req, res) => {
+    try {
+        const page = req.query.page || 1;
+        const songId = req.query.songId;
+        if (!songId) return;
+        const response = await fetch(`${baseUrl}/${songId}/${page}.html`)
+        const html = await response.text();
+        const $ = load(html);
+        const albumSongs = [];
+        $('div.listbox').each((i, el) => {
+            const songId = $(el).find('a').attr('href').replace(`${baseUrl}/`, "").replace(/^\//, "").replace(/\.html/, "");
+            const img = $(el).find('img').attr('data-src');
+            const name = $(el).find('h2').text();
+            const size = $(el).find('div.listbox-tags').last().text()
+
+            albumSongs.push({
+                "songId": songId,
+                "img": img,
+                "name": name,
+                "size": size
+            })
+        })
+        res.send(albumSongs)
     } catch (error) {
         console.error("Error:", error);
         res.status(500).send("Internal Server Error");

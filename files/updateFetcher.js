@@ -9,7 +9,7 @@ const fetchUpdatesForCategory = async (baseUrl, category, page) => {
         const songId = $(el).find('a').attr("href").replace(`${baseUrl}/`, "").replace(/^\//, '').replace(/\.html$/, "").trim();
         const img = $(el).find('img').attr('data-src');
         const name = $(el).find('h3 > a').text();
-        const singer = $(el).find('h3 + p').text().trim();
+        const singer = $(el).find('h3 + p').text().split(",").map(s => s.trim());
         updates.push({
             "songId": songId,
             "img": img,
